@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amara Daniels Makeup Artistry</title>
+<meta name="description" content="Bridal, event and everyday makeup. Book on WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#2A1022; --rouge:#C8284D; --blush:#F2C9D1; --bone:#FAF4F5; --ink:#1E0E18;
+  --muted:#6E5560;
+  --display:"Bodoni Moda",Georgia,serif; --body:"Figtree",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--bone);line-height:1.6;font-size:17px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rouge);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+/* header */
+header{background:var(--plum);color:var(--bone)}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font-family:var(--display);font-size:1.15rem;text-decoration:none}
+nav a.book{font-weight:600;font-size:.95rem;text-decoration:none;background:var(--rouge);padding:8px 18px;border-radius:99px}
+
+/* hero */
+.hero{padding:56px 0 72px}
+.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2.8rem,9vw,6rem);line-height:1;letter-spacing:-.02em;max-width:11ch}
+.hero h1 em{font-weight:500}
+.hero p{max-width:46ch;margin:24px 0 32px;color:var(--blush);font-size:1.1rem}
+.btn{display:inline-block;background:var(--rouge);color:#fff;font:600 1rem var(--body);padding:14px 28px;border:0;border-radius:99px;cursor:pointer;text-decoration:none}
+.btn:hover{background:#a81f3e}
+.shades{display:flex;gap:0;margin-top:56px;height:64px;border-radius:12px;overflow:hidden}
+.shades span{flex:1;transition:flex .3s}
+.shades span:hover{flex:2.2}
+
+/* sections */
+section{padding:72px 0}
+h2{font-family:var(--display);font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.1;margin-bottom:12px}
+.lead{color:var(--muted);max-width:52ch;margin-bottom:36px}
+
+/* services */
+.services{list-style:none;padding:0;border-top:1px solid #dcc3ca}
+.services li{display:grid;grid-template-columns:1fr auto;gap:4px 24px;padding:22px 0;border-bottom:1px solid #dcc3ca}
+.services b{font-family:var(--display);font-size:1.3rem;font-weight:500}
+.services .price{font-weight:600;color:var(--rouge);white-space:nowrap}
+.services small{grid-column:1/-1;color:var(--muted);font-size:.95rem}
+
+/* about */
+.about{background:var(--blush)}
+.about p{max-width:58ch;margin-bottom:14px}
+
+/* booking */
+.booking{background:var(--plum);color:var(--bone)}
+.booking .lead{color:var(--blush)}
+form{display:grid;gap:18px;grid-template-columns:1fr 1fr;max-width:720px}
+.full{grid-column:1/-1}
+label{display:block;font-weight:500;font-size:.95rem;margin-bottom:6px}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bone);border:2px solid transparent;border-radius:10px;padding:12px 14px}
+input:focus,select:focus,textarea:focus{border-color:var(--rouge);outline:none}
+textarea{min-height:90px;resize:vertical}
+.err{color:#ffb3c1;font-size:.9rem;min-height:1.2em}
+.note{font-size:.9rem;color:var(--blush)}
+.fallback{display:none;margin-top:16px;padding:14px;border-radius:10px;background:rgba(255,255,255,.08);font-size:.95rem;max-width:720px}
+.fallback textarea{margin-top:8px;min-height:110px}
+
+footer{padding:28px 0;font-size:.9rem;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+@media (max-width:620px){form{grid-template-columns:1fr}.hero{padding-top:36px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="logo" href="#" id="logo"></a>
+      <a class="book" href="#book">Book now</a>
+    </nav>
+    <div class="hero">
+      <h1 id="heroTitle"></h1>
+      <p id="tagline"></p>
+      <a class="btn" href="#book">Book your look</a>
+      <div class="shades" aria-hidden="true" id="shades"></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="services">
+    <div class="wrap">
+      <h2>Services and prices</h2>
+      <p class="lead">Every booking includes skin prep and a lash-and-lip finish. Prices are in rand.</p>
+      <ul class="services" id="serviceList"></ul>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="wrap">
+      <h2>About</h2>
+      <div id="aboutText"></div>
+    </div>
+  </section>
+
+  <section class="booking" id="book">
+    <div class="wrap">
+      <h2>Request a booking</h2>
+      <p class="lead">Fill this in and we'll open WhatsApp with your details ready to send. Your booking is confirmed once she replies.</p>
+      <form id="bookingForm" novalidate>
+        <div>
+          <label for="name">Your name</label>
+          <input id="name" required autocomplete="name">
+          <div class="err" id="e-name"></div>
+        </div>
+        <div>
+          <label for="service">Service</label>
+          <select id="service" required></select>
+          <div class="err" id="e-service"></div>
+        </div>
+        <div>
+          <label for="date">Date</label>
+          <input id="date" type="date" required>
+          <div class="err" id="e-date"></div>
+        </div>
+        <div>
+          <label for="time">Time</label>
+          <input id="time" type="time" required>
+          <div class="err" id="e-time"></div>
+        </div>
+        <div class="full">
+          <label for="where">Where</label>
+          <select id="where"></select>
+        </div>
+        <div class="full">
+          <label for="notes">Anything else? (skin type, number of people, inspiration)</label>
+          <textarea id="notes"></textarea>
+        </div>
+        <div class="full">
+          <button class="btn" type="submit">Send on WhatsApp</button>
+          <p class="note" style="margin-top:10px">This opens WhatsApp. Nothing is stored on this website.</p>
+        </div>
+      </form>
+      <div class="fallback" id="fallback">
+        WhatsApp didn't open? Copy this message and send it to <b id="fbNum"></b>:
+        <textarea id="fbText" readonly></textarea>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span id="footName"></span>
+    <span id="footContact"></span>
+  </div>
+</footer>
+
+<script>
+/* ===== EDIT THIS BLOCK PER CLIENT ===== */
+const CONFIG = {
+  businessName: "Amara Daniels",
+  suffix: "Makeup Artistry",
+  tagline: "Bridal, matric dance and event makeup that looks like you, only polished. Based in Cape Town, travelling to you.",
+  whatsapp: "27821234567",          // country code + number, no +, no spaces, no leading 0
+  instagram: "",                    // e.g. "amara.makeup" (optional)
+  locations: ["At my studio", "Come to my venue (travel fee applies)"],
+  services: [
+    { name: "Everyday glam",   price: "R450",  desc: "Natural, skin-first makeup for dates, shoots and nights out. About 45 minutes." },
+    { name: "Matric dance",    price: "R650",  desc: "Full glam with lashes, made to last through photos and the dance floor." },
+    { name: "Bridal",          price: "R1,800", desc: "Trial included. Long-wear makeup tested for tears, heat and a full day of photos." },
+    { name: "Bridal party",    price: "R550 per person", desc: "For bridesmaids and family. Minimum of three people." }
+  ],
+  about: [
+    "Amara has been doing makeup for six years, from small studio sessions to full wedding mornings.",
+    "She works with all skin tones and uses long-wear, cruelty-free products that hold up in South African summers."
+  ],
+  shades: ["#F7DCC9","#EBC3A4","#D9A57F","#B9805B","#8F5A3E","#6B3E2C","#C8284D","#8E1F3F"]
+};
+/* ===== END CONFIG ===== */
+
+const $ = id => document.getElementById(id);
+const full = CONFIG.businessName + " " + CONFIG.suffix;
+
+document.title = full;
+$("logo").textContent = CONFIG.businessName;
+$("heroTitle").innerHTML = "Makeup that <em>stays</em> all day.";
+$("tagline").textContent = CONFIG.tagline;
+$("footName").textContent = full;
+$("footContact").textContent = CONFIG.instagram ? "Instagram: @" + CONFIG.instagram : "WhatsApp bookings only";
+
+CONFIG.shades.forEach(c => { const s = document.createElement("span"); s.style.background = c; $("shades").appendChild(s); });
+
+CONFIG.about.forEach(t => { const p = document.createElement("p"); p.textContent = t; $("aboutText").appendChild(p); });
+
+CONFIG.services.forEach(s => {
+  const li = document.createElement("li");
+  li.innerHTML = "<b></b><span class='price'></span><small></small>";
+  li.querySelector("b").textContent = s.name;
+  li.querySelector(".price").textContent = s.price;
+  li.querySelector("small").textContent = s.desc;
+  $("serviceList").appendChild(li);
+});
+
+const svc = $("service");
+svc.innerHTML = "<option value=''>Choose a service</option>";
+CONFIG.services.forEach(s => svc.add(new Option(s.name + " (" + s.price + ")", s.name)));
+CONFIG.locations.forEach(l => $("where").add(new Option(l, l)));
+
+const today = new Date(); today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+$("date").min = today.toISOString().split("T")[0];
+
+function niceDate(iso){
+  const [y,m,d] = iso.split("-").map(Number);
+  return new Date(y, m-1, d).toLocaleDateString("en-ZA", { weekday:"long", day:"numeric", month:"long", year:"numeric" });
+}
+
+$("bookingForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const v = id => $(id).value.trim();
+  const rules = { name:"Enter your name.", service:"Choose a service.", date:"Pick a date.", time:"Pick a time." };
+  let ok = true;
+  Object.keys(rules).forEach(k => { $("e-"+k).textContent = v(k) ? "" : rules[k]; if(!v(k)) ok = false; });
+  if (!ok) return;
+
+  const msg = [
+    "Hi " + CONFIG.businessName + "! I'd like to book:",
+    "",
+    "Name: " + v("name"),
+    "Service: " + v("service"),
+    "Date: " + niceDate(v("date")),
+    "Time: " + v("time"),
+    "Where: " + v("where"),
+    v("notes") ? "Notes: " + v("notes") : "",
+    "",
+    "Is this available?"
+  ].filter((l,i,a) => l !== "" || (a[i-1] !== "" && i !== 0)).join("\n");
+
+  const url = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
+  $("fbNum").textContent = "+" + CONFIG.whatsapp;
+  $("fbText").value = msg;
+  $("fallback").style.display = "block";
+  window.open(url, "_blank", "noopener");
+});
+</script>
+</body>
+</html>
